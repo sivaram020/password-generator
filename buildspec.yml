@@ -1,0 +1,40 @@
+version: 0.2
+env:
+  variables:
+    ecr_repo: 103102790427.dkr.ecr.ap-south-1.amazonaws.com/dda_api
+    image_tag: prod_latest
+    ecr_repo_name: dda_api
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+  pre_build:
+    commands:
+      - echo "Pre Build..!"
+      - pip install awscli --upgrade --user
+      - aws --version
+      - echo "logging into ECR...!"
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - aws ecr batch-delete-image --repository-name $ecr_repo_name --image-ids imageTag=$image_tag > deleteimage.json
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo "Building docker image..."
+      - docker build -t $ecr_repo:$image_tag .
+      - echo "Build and tagged docker image..."
+      - echo "Pushing docker image..."
+      - docker push $ecr_repo:$image_tag
+      - echo "Pushed Successfully :)"
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - printf '[{"name":"order-service","imageUri":"%s"}]' $ecr_repo:$image_tag > imagedefinitions.json
+      - cat imagedefinitions.json
+      - cat deleteimage.json
+      - aws cloudformation package --template-file template.yml --s3-bucket dda-api-cicd --output-template-file outputTemplate.yml
+artifacts:
+  files:
+    - imagedefinitions.json
+    - deleteimage.json
+    - template.yml
+    - outputTemplate.yml
