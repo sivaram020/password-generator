@@ -1,9 +1,9 @@
 version: 0.2
 env:
   variables:
-    ecr_repo: 103102790427.dkr.ecr.ap-south-1.amazonaws.com/dda_api
+    ecr_repo: 777988817551.dkr.ecr.us-east-1.amazonaws.com/password_generetor
     image_tag: prod_latest
-    ecr_repo_name: dda_api
+    ecr_repo_name: password_generetor
 phases:
   install:
     runtime-versions:
