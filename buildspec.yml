@@ -31,7 +31,6 @@ phases:
       - printf '[{"name":"order-service","imageUri":"%s"}]' $ecr_repo:$image_tag > imagedefinitions.json
       - cat imagedefinitions.json
       - cat deleteimage.json
-      - aws cloudformation package --template-file template.yml --s3-bucket dda-api-cicd --output-template-file outputTemplate.yml
 artifacts:
   files:
     - imagedefinitions.json
