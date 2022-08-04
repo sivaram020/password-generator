@@ -17,7 +17,7 @@ Resources:
             Path: /{proxy+}
             Method: ANY
       CodeUri: ./
-      Description: "Lambda function for DDA_API CICD Demo"
+      Description: "Lambda function for test-password-generetor"
       MemorySize: 128
       Timeout: 30
       Environment:
