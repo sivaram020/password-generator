@@ -6,7 +6,7 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       PackageType: Image
-      Role: arn:aws:iam::103102790427:role/lambda-ecr
+      Role: arn:aws:iam::777988817551:role/lambda-ecr
       # Handler: index.handler
       # Runtime: nodejs12.x 103102790427.dkr.ecr.ap-south-1.amazonaws.com/dda_api
       ImageUri: 777988817551.dkr.ecr.us-east-1.amazonaws.com/password_generetor
