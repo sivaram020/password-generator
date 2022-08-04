@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: "AWS::Serverless-2016-10-31"
+Description: CD Demo Lambda
+Resources:
+  DDAAPICICD:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      PackageType: Image
+      Role: arn:aws:iam::103102790427:role/lambda-ecr
+      # Handler: index.handler
+      # Runtime: nodejs12.x 103102790427.dkr.ecr.ap-south-1.amazonaws.com/dda_api
+      ImageUri: 777988817551.dkr.ecr.us-east-1.amazonaws.com/password_generetor
+      Events:
+        HelloWorldFunction:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+      CodeUri: ./
+      Description: "Lambda function for DDA_API CICD Demo"
+      MemorySize: 128
+      Timeout: 30
+      Environment:
+        Variables:
+          REGION: us-east-1
+    Metadata:
+      DockerTag: prod_latest
+      DockerContext: ./
+      Dockerfile: Dockerfile
