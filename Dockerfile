@@ -1,6 +1,6 @@
 FROM public.ecr.aws/lambda/nodejs:12
 
-ENV AWS_DEFAULT_REGION = "ap-south-1"
+ENV AWS_DEFAULT_REGION = "us-east-1"
 
 WORKDIR ${LAMBDA_TASK_ROOT}
 
